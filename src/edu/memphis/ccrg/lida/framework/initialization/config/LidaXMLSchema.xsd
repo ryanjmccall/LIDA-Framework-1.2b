@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://ccrg.cs.memphis.edu/LidaXMLSchema" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ccrg.cs.memphis.edu/LidaXMLSchema">
+    <complexType name="module">
+    	<sequence>
+    		<element name="class" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="submodules" type="tns:modules"
+    			maxOccurs="1" minOccurs="0">
+    		</element>
+    		<element name="associatedmodule" type="tns:associatedmodule"
+    			maxOccurs="unbounded" minOccurs="0">
+    		</element>
+    		<element name="param" type="tns:param" maxOccurs="unbounded"
+    			minOccurs="0">
+    		</element>
+    		<element name="taskspawner" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="initialTasks" type="tns:tasks" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    		<element name="initializerclass" type="string" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    	</sequence>
+    	<attribute name="name" type="string" use="required"></attribute>
+    </complexType>
+
+
+
+
+
+    <complexType name="modules">
+    	<sequence>
+    		<element name="module" type="tns:module" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="taskspawners">
+    	<sequence>
+    		<element name="taskspawner" type="tns:taskspawner" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <element name="lida" type="tns:lida"></element>
+    
+    <complexType name="lida">
+    	<sequence>
+            <element name="globalparams" type="tns:params"
+            	maxOccurs="1" minOccurs="0">
+            </element>
+            <element name="taskmanager" type="tns:taskmanager"
+    			maxOccurs="1" minOccurs="1">
+    		</element>
+    		<element name="taskspawners" type="tns:taskspawners"
+    			maxOccurs="1" minOccurs="1">
+    		</element>
+    		<element name="submodules" type="tns:modules" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="listeners" type="tns:listeners" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="param">
+    	<simpleContent>
+    		<extension base="string">
+    			<attribute name="name" type="string" use="required"></attribute>
+    			<attribute name="type" use="optional">
+    				<simpleType>
+    					<restriction base="string">
+    						<enumeration value="int"></enumeration>
+    						<enumeration value="double"></enumeration>
+    						<enumeration value="string"></enumeration>
+    						<enumeration value="boolean"></enumeration>
+    					</restriction>
+    				</simpleType>
+    			</attribute>
+    		</extension>
+    	</simpleContent>
+    </complexType>
+
+    <complexType name="listener">
+    	<sequence>
+    		<element name="listenertype" type="string" maxOccurs="1" minOccurs="1"></element>
+    		<element name="modulename" type="string" maxOccurs="1" minOccurs="1"></element>
+    		<element name="listenername" type="string" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="listeners">
+    	<sequence>
+    		<element name="listener" type="tns:listener" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="taskmanager">
+    	<sequence>
+    		<element name="param" type="tns:param" maxOccurs="unbounded" minOccurs="0"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="associatedmodule">
+       <simpleContent>
+      <extension base="string">
+    	<attribute name="function" type="string" use="optional"></attribute>
+      </extension>
+    </simpleContent>
+    </complexType>
+
+    <complexType name="task">
+        	<sequence>
+    		<element name="tasktype" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="ticksperrun" type="int" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    		<element name="param" type="tns:param" maxOccurs="unbounded"
+    			minOccurs="0">
+    		</element>
+    	</sequence>
+    	<attribute name="name" type="string" use="required"></attribute>
+    </complexType>
+
+    <complexType name="tasks">
+    	<sequence>
+    		<element name="defaultticksperrun" type="int" maxOccurs="1" minOccurs="0"></element>
+    		<element name="task" type="tns:task" maxOccurs="unbounded"
+    			minOccurs="0">
+    		</element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="taskspawner">
+    <sequence>
+        		<element name="class" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="param" type="tns:param" maxOccurs="unbounded"
+    			minOccurs="0">
+    		</element>
+    	</sequence>
+    	<attribute name="name" type="string" use="required"></attribute>
+    
+    </complexType>
+
+    <complexType name="params">
+    	<sequence>
+    		<element name="param" type="tns:param" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+</schema>

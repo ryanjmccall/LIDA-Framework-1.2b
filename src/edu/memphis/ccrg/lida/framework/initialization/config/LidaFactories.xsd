@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://ccrg.cs.memphis.edu/LidaFactories" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ccrg.cs.memphis.edu/LidaFactories">
+    <complexType name="strategydef">
+    	<sequence>
+    		<element name="class" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="param" type="tns:param" maxOccurs="unbounded"
+    			minOccurs="0">
+    		</element>
+    	</sequence>
+    	<attribute name="name" type="string" use="required"></attribute>
+    	<attribute name="type" use="optional">
+    		<simpleType>
+    			<restriction base="string">
+    				<enumeration value="excite"></enumeration>
+    				<enumeration value="decay"></enumeration>
+    				<enumeration value="propagation"></enumeration>
+    				<enumeration value="other"></enumeration>
+    			</restriction>
+    		</simpleType>
+    	</attribute>
+    	<attribute name="flyweight" type="boolean" use="optional"></attribute>
+    </complexType>
+    <complexType name="associatedmodule">
+       <simpleContent>
+      <extension base="string">
+    	<attribute name="function" type="string" use="optional"></attribute>
+      </extension>
+    </simpleContent>
+    </complexType>
+
+
+    <complexType name="linkabledef">
+    	<sequence>
+    		<element name="class" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="defaultstrategy" type="string"
+    			maxOccurs="unbounded" minOccurs="0">
+    		</element>
+    		<element name="param" type="tns:param" maxOccurs="unbounded"
+    			minOccurs="0">
+    		</element>
+    	</sequence>
+    	<attribute name="name" type="string" use="required"></attribute>
+    </complexType>
+
+
+    <complexType name="param">
+    	<simpleContent>
+    		<extension base="string">
+    			<attribute name="name" type="string" use="required"></attribute>
+    			<attribute name="type" use="optional">
+    				<simpleType>
+    					<restriction base="string">
+    						<enumeration value="int"></enumeration>
+    						<enumeration value="double"></enumeration>
+    						<enumeration value="string"></enumeration>
+    						<enumeration value="boolean"></enumeration>
+    					</restriction>
+    				</simpleType>
+    			</attribute>
+    		</extension>
+    	</simpleContent>
+    </complexType>
+
+
+
+    <element name="LidaFactories" type="tns:LidaFactories"></element>
+    
+    <complexType name="LidaFactories">
+    	<sequence>
+    		<element name="strategies" type="tns:strategies" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    		<element name="nodes" type="tns:nodes" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    		<element name="links" type="tns:links" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    		<element name="tasks" type="tns:tasks" maxOccurs="1" minOccurs="0"></element>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="nodes">
+    	<sequence>
+    		<element name="node" type="tns:linkabledef" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="links">
+    	<sequence>
+    		<element name="link" type="tns:linkabledef" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="strategies">
+    	<sequence>
+    		<element name="strategy" type="tns:strategydef" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="taskdef">
+    	<annotation>
+    		<documentation>
+    			Refers to definitions of FrameworkTasks including FeatureDetectors, SBCodelets and
+    			AttentionCodelets
+    		</documentation>
+    	</annotation>
+    	<sequence>
+    		<element name="class" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+            <element name="ticksperrun" type="int" maxOccurs="1" minOccurs="1"></element>
+            <element name="defaultstrategy" type="string"
+    			maxOccurs="unbounded" minOccurs="0">
+    		</element>
+    		<element name="associatedmodule" type="tns:associatedmodule"
+    			maxOccurs="unbounded" minOccurs="0">
+    		</element>
+    		<element name="param" type="tns:param" maxOccurs="unbounded"
+    			minOccurs="0">
+    		</element>
+    	</sequence>
+    	<attribute name="name" type="string" use="required"></attribute>
+    </complexType>
+
+    <complexType name="tasks">
+    	<sequence>
+    		<element name="task" type="tns:taskdef" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+</schema>
